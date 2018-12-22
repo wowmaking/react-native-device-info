@@ -212,7 +212,13 @@ RCT_EXPORT_MODULE(RNDeviceInfo)
 - (NSNumber*) fontScale
 {
   float fontScale = 1.0;
-  NSString *contentSize = [UIApplication sharedApplication].preferredContentSizeCategory;
+    
+  NSString *contentSize;
+
+  UIApplication *application = [UIApplication performSelector:@selector(sharedApplication)];
+  if (application) {
+    contentSize = application.preferredContentSizeCategory;
+  }
 
   if ([contentSize isEqual: @"UICTContentSizeCategoryXS"]) fontScale = 0.82;
   else if ([contentSize isEqual: @"UICTContentSizeCategoryS"]) fontScale = 0.88;
